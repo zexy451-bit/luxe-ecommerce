@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { createClient } from "@/lib/supabase/server";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#15110d",
+};
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const cormorant = Cormorant_Garamond({

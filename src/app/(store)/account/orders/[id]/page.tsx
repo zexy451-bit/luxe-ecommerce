@@ -11,6 +11,8 @@ import { formatDate, STATUS_COLORS } from "@/lib/utils";
 import { CheckCircle2, Download } from "lucide-react";
 import type { OrderItem } from "@/types/db";
 
+export const dynamic = "force-dynamic";
+
 export default async function OrderDetailPage({
   params,
   searchParams,
@@ -22,12 +24,14 @@ export default async function OrderDetailPage({
   const sp = await searchParams;
   const user = await requireUser();
   const supabase = await createClient();
+  const email = user.email ?? "";
+  // Allow access via user_id OR matching guest customer_email.
   const { data: order } = await supabase
     .from("orders")
     .select("*, order_items(*)")
     .eq("id", id)
-    .eq("user_id", user.id)
-    .single();
+    .or(`user_id.eq.${user.id},customer_email.eq.${email}`)
+    .maybeSingle();
   if (!order) notFound();
 
   return (

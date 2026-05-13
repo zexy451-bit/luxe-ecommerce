@@ -26,10 +26,28 @@
   * {
     @apply border-border;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
   html, body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body {
+    @apply overflow-x-clip;
+    min-height: 100dvh;
+  }
+  /* Prevent iOS Safari from auto-zooming on focused inputs.
+     iOS only zooms when computed font-size < 16px. */
+  @media (max-width: 768px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
   }
   ::selection {
     background: hsl(var(--accent) / 0.4);

@@ -6,13 +6,18 @@ import { Badge } from "@/components/ui/badge";
 import { Price } from "@/components/store/price";
 import { formatDate, STATUS_COLORS } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export default async function OrdersPage() {
   const user = await requireUser();
   const supabase = await createClient();
+  // Match by user_id OR customer_email so guest orders placed with the same
+  // email show up in the account after the user signs up.
+  const email = user.email ?? "";
   const { data: orders } = await supabase
     .from("orders")
     .select("id, order_number, grand_total, status, created_at, order_items(id)")
-    .eq("user_id", user.id)
+    .or(`user_id.eq.${user.id},customer_email.eq.${email}`)
     .order("created_at", { ascending: false });
 
   if (!orders || orders.length === 0) {
