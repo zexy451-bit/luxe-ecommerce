@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/lib/auth";
 import { Card } from "@/components/ui/card";
 import { ProfileForm } from "./profile-form";
+import { PasswordForm } from "./password-form";
 
 export default async function AccountOverview() {
   const profile = await getProfile();
@@ -27,6 +28,10 @@ export default async function AccountOverview() {
       <Card className="p-6">
         <h2 className="mb-4 font-medium">Profile</h2>
         <ProfileForm initial={profile} />
+      </Card>
+      <Card className="p-6">
+        <h2 className="mb-4 font-medium">Change password</h2>
+        <PasswordForm />
       </Card>
     </div>
   );

@@ -52,7 +52,13 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
-  if (isAuthRoute && user && !url.pathname.startsWith("/auth/callback")) {
+  // Allow authenticated users to access /auth/callback (for OAuth + recovery) and
+  // /auth/reset-password (active recovery session sets a new password).
+  const allowAuthedOnAuthPath =
+    url.pathname.startsWith("/auth/callback") ||
+    url.pathname.startsWith("/auth/reset-password");
+
+  if (isAuthRoute && user && !allowAuthedOnAuthPath) {
     const redirect = url.clone();
     redirect.pathname = "/account";
     return NextResponse.redirect(redirect);
