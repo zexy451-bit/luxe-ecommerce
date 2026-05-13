@@ -12,9 +12,12 @@ export default async function WishlistPage() {
     .select("products(*, product_images(*), brands(name, slug))")
     .eq("user_id", user.id);
 
-  const products = (data || [])
-    .map((r) => (r as { products: Product }).products)
-    .filter(Boolean);
+  // Supabase types the joined relation loosely; safe to coerce here since the
+  // shape comes from our select() string above.
+  const rows = (data ?? []) as unknown as Array<{ products: Product | Product[] | null }>;
+  const products: Product[] = rows
+    .map((r) => (Array.isArray(r.products) ? r.products[0] : r.products))
+    .filter((p): p is Product => !!p);
 
   if (products.length === 0) {
     return (

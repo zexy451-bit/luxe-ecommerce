@@ -100,7 +100,11 @@ const fmt = (n: number, sym: string) =>
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
-export const OrderConfirmationEmail: React.FC<OrderConfirmationEmailProps> = ({
+type OrderConfirmationEmailComponent = React.FC<OrderConfirmationEmailProps> & {
+  PreviewProps?: OrderConfirmationEmailProps;
+};
+
+export const OrderConfirmationEmail: OrderConfirmationEmailComponent = ({
   customerName,
   customerEmail,
   orderNumber,

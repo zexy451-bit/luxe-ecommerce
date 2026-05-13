@@ -9,6 +9,7 @@ import { formatPrice, formatDateTime } from "@/lib/utils";
 import { OrderStatusControl } from "@/components/admin/order-status-control";
 import { OrderNoteEditor } from "@/components/admin/order-note-editor";
 import { Download, ArrowLeft } from "lucide-react";
+import type { OrderItem } from "@/types/db";
 
 export default async function AdminOrderDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -45,7 +46,7 @@ export default async function AdminOrderDetail({ params }: { params: Promise<{ i
           <Card className="p-6">
             <h3 className="mb-4 font-medium">Items</h3>
             <div className="space-y-4">
-              {(order.order_items || []).map((it) => (
+              {((order.order_items as OrderItem[] | null) || []).map((it) => (
                 <div key={it.id} className="flex gap-4">
                   <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-muted">
                     {it.image_url && <Image src={it.image_url} alt={it.product_name} fill sizes="70px" className="object-cover" />}

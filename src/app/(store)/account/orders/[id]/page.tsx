@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Price } from "@/components/store/price";
 import { formatDate, STATUS_COLORS } from "@/lib/utils";
 import { CheckCircle2, Download } from "lucide-react";
+import type { OrderItem } from "@/types/db";
 
 export default async function OrderDetailPage({
   params,
@@ -66,7 +67,7 @@ export default async function OrderDetailPage({
         <Separator className="my-6" />
 
         <div className="space-y-4">
-          {(order.order_items || []).map((it) => (
+          {((order.order_items as OrderItem[] | null) || []).map((it) => (
             <div key={it.id} className="flex gap-4">
               <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-muted">
                 {it.image_url && (

@@ -56,7 +56,7 @@ export default async function AdminProducts({ searchParams }: { searchParams: SP
             </thead>
             <tbody>
               {(data || []).map((p) => {
-                const img = p.product_images?.find((i) => i.is_primary)?.url || p.product_images?.[0]?.url;
+                const img = p.product_images?.find((i: { is_primary: boolean; url: string }) => i.is_primary)?.url || p.product_images?.[0]?.url;
                 return (
                   <tr key={p.id} className="border-t hover:bg-muted/30">
                     <td className="px-6 py-3">

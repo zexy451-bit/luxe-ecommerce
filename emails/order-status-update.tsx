@@ -161,7 +161,11 @@ const sansStack =
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
-export const OrderStatusUpdateEmail: React.FC<OrderStatusUpdateEmailProps> = ({
+type OrderStatusUpdateEmailComponent = React.FC<OrderStatusUpdateEmailProps> & {
+  PreviewProps?: OrderStatusUpdateEmailProps;
+};
+
+export const OrderStatusUpdateEmail: OrderStatusUpdateEmailComponent = ({
   customerName,
   customerEmail,
   orderNumber,
