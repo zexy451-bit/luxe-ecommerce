@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 30% 98%;
+    --foreground: 24 10% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 10% 10%;
+    --primary: 24 10% 10%;
+    --primary-foreground: 40 30% 98%;
+    --secondary: 30 10% 95%;
+    --secondary-foreground: 24 10% 10%;
+    --muted: 30 10% 95%;
+    --muted-foreground: 25 5% 45%;
+    --accent: 36 50% 60%;
+    --accent-foreground: 24 10% 10%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 8% 90%;
+    --input: 30 8% 90%;
+    --ring: 24 10% 10%;
+    --radius: 0.75rem;
+  }
+  * {
+    @apply border-border;
+  }
+  html, body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: hsl(var(--accent) / 0.4);
+  }
+}
+
+@layer components {
+  .container-wide {
+    @apply mx-auto w-full max-w-[1400px] px-5 md:px-10;
+  }
+  .heading-display {
+    @apply font-display tracking-tight;
+  }
+  .skeleton {
+    @apply relative overflow-hidden bg-muted/60;
+  }
+  .skeleton::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/40 to-transparent;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none }
