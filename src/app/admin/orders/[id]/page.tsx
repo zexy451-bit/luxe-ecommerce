@@ -11,6 +11,9 @@ import { OrderNoteEditor } from "@/components/admin/order-note-editor";
 import { Download, ArrowLeft } from "lucide-react";
 import type { OrderItem } from "@/types/db";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminOrderDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const supabase = await createClient();
